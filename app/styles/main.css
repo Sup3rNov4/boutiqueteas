@@ -1,0 +1,54 @@
+/*
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+*/
+
+body {
+  background-color: black;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+}
+
+#mainToolbar {
+  background-color: rgba(33, 98, 130, 0.64);
+}
+
+.page-title {
+  outline: none;
+}
+
+.landing_img {
+  width: 100%;
+  margin-top: -3%;
+  margin-bottom: 5vh;
+  background-size:cover;
+  border-radius: .5em;
+}
+
+.home_img {
+  border-radius: .5em;
+}
+
+h1 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  text-align: center;
+  color: gainsboro;
+}
+
+.homeH2 {
+  color: gainsboro;
+}
+
+p {
+  color: gainsboro;
+  text-align: justify;
+}
+
+i {
+
+}
