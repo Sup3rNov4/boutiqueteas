@@ -44,6 +44,11 @@ h1 {
   color: gainsboro;
 }
 
+/*#drawer {
+  visibility: hidden;
+  display: none;
+}*/
+
 p {
   color: gainsboro;
   text-align: justify;
