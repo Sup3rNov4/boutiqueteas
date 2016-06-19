@@ -16,6 +16,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="Polymer Starter Kit">
+  <firebase-auth
+    auto-login
+    redirect
+    location="[[firebaseURL]]"
+    provider="[[firebaseProvider]]"
+    on-error="onFirebaseError"
+    on-login="onFirebaseLogin"></firebase-auth>
+  <paper-toast id="errorToast"></paper-toast>
   <title>Simply Boutique Teas</title>
 
   <!-- Place favicon.ico in the `app/` directory -->
@@ -71,20 +79,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- endbuild -->
 
   <template is="dom-bind" id="app">
-
+  <!-- <core-toolbar>
+    <paper-icon-button icon="menu">
+    <paper-icon-button>
+  </core-toolbar> -->
     <paper-drawer-panel id="paperDrawerPanel">
+
       <!-- Drawer Scroll Header Panel -->
       <!-- <paper-scroll-header-panel drawer fixed> -->
 
         <!-- Drawer Toolbar -->
 
-        <paper-toolbar id="drawerToolbar">
-          <span class="menu-name">Menu</span>
-        </paper-toolbar>
+    <!-- <paper-toolbar id="drawerToolbar">
+      <span class="menu-name">Menu</span>
+    </paper-toolbar> -->
 
         <!-- Drawer Content -->
 
-        <paper-menu class="app-menu" attr-for-selected="data-route" selected="[[route]]">
+        <!-- <paper-menu class="app-menu" attr-for-selected="data-route" selected="[[route]]">
           <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
                 <li>
@@ -114,7 +126,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               </ul>
             </div>
           </paper-menu>
-        </paper-scroll-header-panel>
+        </paper-scroll-header-panel> -->
 
     <paper-scroll-header-panel drawer fixed>
       <paper-menu class="app-menu" attr-for-selected="data-route" selected="[[route]]">
@@ -137,23 +149,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         <span>Home</span>
                       </a>
                     </li>
-                      <li>
-                          <a href="#teas">Teas</a>
-                      </li>
-                      <li>
-                          <a href="#teawares">Teawares</a>
-                      </li>
-                      <li>
-                        <a data-route="users" href="{{baseUrl}}users">
-                          <iron-icon icon="info"></iron-icon>
-                          <span>Contacts</span>
-                        </a>
-                      </li>
+                    <li>
+                        <a href="#teas">Teas</a>
+                    </li>
+                    <li>
+                        <a href="#teawares">Teawares</a>
+                    </li>
+                    <li>
+                      <a data-route="users" href="{{baseUrl}}users">
+                        <iron-icon icon="info"></iron-icon>
+                        <span>Contacts</span>
+                      </a>
+                    </li>
                   </ul>
-              </div>
+               </div>
             </nav>
           </paper-menu>
-        </paper-scroll-header-panel>
+      </paper-scroll-header-panel>
 
       <!-- Main Area -->
       <paper-scroll-header-panel main id="headerPanelMain" condenses keep-condensed-header>
@@ -227,7 +239,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                         </p>
                     </div>
                   </section>
-                  <break>
+                  <br>
                   <section id="contact">
                     <div class="col-md-6">
                       <h3>Contact Us</h3>
@@ -244,7 +256,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   </section>
                   <!--  -->
                   <hr>
-                  <break>
+                  <br>
                   <footer class="social">
                     <hr>
                     <i class="fa fa-facebook-square" aria-hidden="true"></i>
@@ -258,11 +270,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="users" tabindex="-1">
               <paper-material elevation="1">
                 <h1 class="page-title" tabindex="-1">Contacts</h1>
+
                 <p>This is the contacts section</p>
-                <a href$="{{baseUrl}}users/Addy">Addy</a><br>
-                <a href$="{{baseUrl}}users/Rob">Rob</a><br>
-                <a href$="{{baseUrl}}users/Chuck">Chuck</a><br>
-                <a href$="{{baseUrl}}users/Sam">Sam</a>
+                <ul>
+                  <li>
+                    <img src="https://randomuser.me/api/portraits/thumb/men/5.jpg" alt="">
+                    <h3>Scott</h3>
+                    <span>scott@gmail.com</span>
+                  </li>
+                  <li>
+                    <img src="https://randomuser.me/api/portraits/thumb/men/7.jpg" alt="">
+                    <h3>Tim</h3>
+                    <span>tim@gmail.com</span>
+                  </li>
+                  <li>
+                    <img src="https://randomuser.me/api/portraits/thumb/men/9.jpg" alt="">
+                    <h3>Ben</h3>
+                    <span>ben@gmail.com</span>
+                  </li>
+                </ul>
               </paper-material>
             </section>
 
@@ -271,6 +297,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <h1 class="page-title" tabindex="-1">Contact Name: {{params.name}}</h1>
                 <div>This is {{params.name}}'s details.</div>
               </paper-material>
+            </section>
+
+            <section data-route="user-create" tabindex="-1">
+
+
+              <h2>New Contact</h2>
+              <form action="{{baseURL}}users" method="POST">
+                <p><label>First Name:</label><input type="text" name="first_name"></p>
+                <p><label>Last Name:</label><input type="text" name="last_name"></p>
+                <p><label>Gender:</label>
+                  <input type="checkbox" name="gender" value="male"> M <br>
+                  <input type="checkbox" name="gender" value="female"> F <br>
+                </p>
+                <p><label>Address:</label><input type="number" name="address"></p>
+                <p><label>emailAddress:</label><input type="number" name="email_address"></p>
+                <p><label>Phone No:</label><input type="text" name="phone"></p>
+                <button>Save Contact</button>
+              </form>
             </section>
 
           </iron-pages>
@@ -301,6 +345,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     -->
 
   </template>
+  <contact-list></contact-list>
   <!-- firebase CDN -->
   <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script>

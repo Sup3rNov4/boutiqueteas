@@ -1,0 +1,54 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+
+<dom-module id="contact-list">
+  <template>
+    <paper-material elevation="1">
+
+      <h1 class="page-title" tabindex="-1">Contacts</h1>
+      <p>This is the contacts list</p>
+      <hr>
+      <ul>
+        <li>
+          <img src="https://randomuser.me/api/portraits/thumb/men/5.jpg" alt="">
+          <h3>Scott</h3>
+          <span>scott@gmail.com</span>
+        </li>
+        <li>
+          <img src="https://randomuser.me/api/portraits/thumb/men/7.jpg" alt="">
+          <h3>Tim</h3>
+          <span>tim@gmail.com</span>
+        </li>
+        <li>
+          <img src="https://randomuser.me/api/portraits/thumb/men/9.jpg" alt="">
+          <h3>Ben</h3>
+          <span>ben@gmail.com</span>
+        </li>
+      </ul>
+
+    </paper-material>
+  </template>
+</dom-module>
+
+<script>
+  Polymer({
+    is: "contact-list",
+
+    properties: {
+       firstName: String,
+       lastName: String,
+       fullName: {
+         type: String,
+         computed: 'concatFullName(firstName, lastName)'
+       }
+       gender: Text,
+       address: String,
+       emailAddress: String,
+       phoneNo: Number
+    },
+
+    concatFullName: function(firstName, lastName) {
+      return firstName + " " + lastName;
+    }
+
+  });
+</script>

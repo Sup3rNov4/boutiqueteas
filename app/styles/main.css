@@ -33,6 +33,34 @@ body {
   border-radius: .5em;
 }
 
+ul {
+  list-style: none;
+}
+
+li + li {
+  border-top: solid 1px black;
+}
+
+li {
+  display: flex;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+li img {
+  border-radius: 50%;
+  margin-right: 40px;
+}
+
+li span {
+  line-height: 80px;
+}
+
+h3 {
+  margin: 0 10px 0 0;
+  line-height: 80px;
+}
+
 h1 {
   margin-top: 2em;
   margin-bottom: 1em;
