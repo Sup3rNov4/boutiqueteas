@@ -14,36 +14,40 @@
         <p>This is the contacts list</p>
         <hr>
         <ul>
+
           <template is="dom-repeat" items="{{contacts}}">
             <li>
               <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}" address="{{item.address}}"></contact-listing>
             </li>
           </template>
+          <a href="/add" on-click="{{navigate}}">
+            <i class="fa fa-plus-circle" style="font-size:50px;" aria-hidden="true"> Add Contact</i>
+          </a>
         </ul>
       </paper-material>
     <hr>
     <div>
       <!-- <div class="jumbotron" style="background-color:gainsboro;"> -->
-    <form is="iron-form">
+    <form is="iron-form" id="create-contact">
       <ul style="list-decoration:none;">
         <h3>Add New Contact</h3>
-        <p class="contactInput">
+        <p class="contactInput" id="contact-name">
         <paper-input-decorator label="Name">Name:
           <input is="core-input" value="{{data.name}}"></input>
         </paper-input-decorator>
         </p>
-        <p class="contactInput">
+        <p class="contactInput" id="contact-email">
         <paper-input-decorator label="Email">Email:
           <input is="core-input" value="{{data.email}}"></input>
         </paper-input-decorator>
         </p>
-        <p class="contactInput">
-        <paper-input-decorator label="Address">Address:
+        <p class="contactInput" id="contact-address">
+        <paper-input-decorator label="Number">Phone No:
           <input is="core-input" value="{{data.address}}"></input>
         </paper-input-decorator>
         </p>
       </ul>
-      <input type="submit" value="Add Contact" id="form_submit" onsubmit={{createContact}}></input>
+      <input type="submit" value="Save Contact" id="form_submit" onsubmit={{createContact}}></input>
     </form>
 <!-- </div> -->
 
@@ -94,17 +98,17 @@
           name: "Scott",
           email: "scott@gmail.com",
           img: "https://randomuser.me/api/portraits/thumb/men/5.jpg",
-          address: "42 Evergreen Terrace, Randwick"
+          number: "0423222453"
         }, {
           name: "Tim",
           email: "tim@gmail.com",
           img: "https://randomuser.me/api/portraits/thumb/men/7.jpg",
-          address: "21 Newtown Drive, Newtown"
+          number: "0412111111"
         }, {
           name: "Ben",
           email: "ben@gmail.com",
           img: "https://randomuser.me/api/portraits/thumb/men/9.jpg",
-          address: "31 Sunset Boulevarde, Newport"
+          number: "0400200200"
         },
       ]
     },
@@ -135,7 +139,7 @@
          snapshot.forEach(function(childSnapshot) {
          var item = childSnapshot.val();
          item.uid = childSnapshot.key();
-         this.ref.push({ 'name': '{{item.name}}', 'email': '{{item.email}}', 'phoneNo': '{{item.phoneNo}}' });
+         this.ref.push({ 'name': '{{item.name}}', 'email': '{{item.email}}', 'phoneNo': '{{item.number}}' });
        }.bind(this));
      },
 
@@ -161,21 +165,19 @@
              this.$.errorToast.text = e.detail.message;
              this.$.errorToast.show();
        },
+
        onFirebaseLogin : function(e) {
-
              this.ref = new Firebase(this.firebaseURL + '/user/' + e.detail.user.uid);
-
-            var self = this;
-            this.ref.on('value', function(snapshot) {
-            self.updateItems(snapshot);
-         }, function (errorObject) {
-          console.log("The read failed: " + errorObject.code);
-  });
-
-      },
-
-                  _openStaticDialog: function(ev) {
-                      this.$.static.open();
-                }
-              });
+              var self = this;
+              this.ref.on('value', function(snapshot) {
+              self.updateItems(snapshot);
+           }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+          });
+        },
+        
+        _openStaticDialog: function(ev) {
+        this.$.static.open();
+        }
+     });
 </script>

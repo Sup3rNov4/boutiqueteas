@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>Elements Test Runner</title>
+    <meta charset="UTF-8">
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <script src="../bower_components/web-component-tester/browser.js"></script>
+    <link rel="import" href="../elements/home-page.html">
+  </head>
+
+  <body>
+
+    <script>
+      WCT.loadSuites([
+        'contact-list.html',
+        'contact-listing.html',
+        'footer-file.html'
+      ]);
+      var expect = require('chai').expect();
+      var should = require('chai').should();
+      document.querySelector("#nav-bar").should.exist();
+      expect(document.querySelector("#mainToolbar")).to.have('background-color:rgba(33, 98, 130, 0.64)');
+
+      suite('<home-page>', function() {
+        test('is loaded', function() {
+          assert.isTrue(document.getElementById('main').loaded);
+          assert.isTrue(document.getElementById('links').loaded);
+        });
+      });
+
+    </script>
+
+  </body>
+</html>

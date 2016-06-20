@@ -57,13 +57,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('/users/:name', function(data) {
-      app.route = 'user-info';
+      app.route = 'contact-listing';
       app.params = data.params;
       setFocus(app.route);
     });
 
     page('/contact', function() {
-      app.route = 'contact';
+      app.route = 'contact-list';
+      setFocus(app.route);
+    });
+
+    page('/add', function(){
+      app.route = 'add-contact';
       setFocus(app.route);
     });
 
