@@ -3,6 +3,10 @@
 
 <dom-module id="contact-list">
   <template>
+    <firebase-query
+      id="ref" childEvents location="https://project-1728811666298556286.firebaseio.com/"
+      data="{{data}}" keys="{{keys}}">
+    </firebase-query>
     <section data-route="users" tabindex="-1" >
       <contact-listing></contact-listing>
       <paper-material elevation="1">
@@ -19,32 +23,66 @@
       </paper-material>
     <hr>
     <div>
-    <form is="iron-form" id="form" method="post" action="/form/handler">
+    <form is="iron-form" on-submit="{{createContact}}">
       <ul style="list-decoration:none;">
-        <li>First Name:<input name="firstName"></input></li>
-        <li>Last Name:<input name="lastName"></input></li>
-        <li>Email:<input name="email"></input></li>
-        <li>Address:<input name="address"></input></li>
+        <h3>Add New Contact</h3>
+        <p class="contactInput">
+        <paper-input-decorator label="Name">Name:
+          <input is="core-input" value="{{data.name}}"></input>
+        </paper-input-decorator>
+        </p>
+        <p class="contactInput">
+        <paper-input-decorator label="Email">Email:
+          <input is="core-input" value="{{data.email}}"></input>
+        </paper-input-decorator>
+        </p>
+        <p class="contactInput">
+        <paper-input-decorator label="Address">Address:
+          <input is="core-input" value="{{data.address}}"></input>
+        </paper-input-decorator>
+        </p>
       </ul>
+      <input type="submit" value="Add Contact" id="form_submit"></input>
     </form>
-    <paper-button raised onclick="submitForm()">Submit</paper-button>
 
-  <script>
+
+  <!-- <script>
     function submitForm() {
-      document.getElementById('form').submit();
+      document.getElementById('form').preventDefault;
+
+      var ref = new Firebase("https://project-1728811666298556286.firebaseio.com/");
+      ref.authAnonymously(function(error, authData) {
+      if (error) {
+      console.log("Authentication Failed!", error);
+      } else {
+      console.log("Authenticated successfully with payload:", authData);
     }
-  </script>
+    var newContactRef = contactListRef.push();
+    newContactRef.set({ 'name': '{{this.name}}', 'email': '{{this.email}}', 'address': '{{this.address}}' });
+  });
+    }
+  </script> -->
   </section>
   </template>
-  <template is="dom-repeat" items="{{items}}">
+  <!-- <template is="dom-repeat" items="{{items}}">
       <div>
        <paper-icon-button icon="delete"
         on-click="deleteItem"></paper-icon-button>
        <paper-checkbox on-change="toggleItem"
         checked="{{item.done}}">[[item.text]]
        </paper-checkbox>
-    </div>
+    </div> -->
+    <div class="contact-list">
+  <template is="dom-repeat" items="[[persistedContacts]]" as="contact">
+    <span
+        id$="[[item.$key]]"
+        name="[[item.name]]"
+        email="[[item.email]]"
+        address="[[item.address]]"
+        on-tap="edit">
+    </span>
   </template>
+</div>
 </dom-module>
 <script>
   Polymer({
@@ -69,8 +107,15 @@
         },
       ]
     },
-    properties: {
 
+    createContact: function(e){
+      e.preventDefault();
+      console.log("this is working");
+      this.$.ref.push({name: this.name, email: this.email, address: this.address});
+      this.text = "";
+    },
+
+    properties: {
       firebaseURL: {
         type: String,
         readOnly:true,

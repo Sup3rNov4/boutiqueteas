@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 body {
   background-color: black;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
 }
 
 #mainToolbar {
@@ -54,6 +53,16 @@ li + li {
 
 .listing-wrapper span {
   line-height: 80px;
+}
+
+#form_submit {
+  margin-left: 2em;
+  margin-bottom: 1em;
+}
+
+.contactInput {
+  text-align: left;
+  display: flex;
 }
 
 h3 {
