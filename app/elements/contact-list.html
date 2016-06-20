@@ -3,71 +3,74 @@
 
 <dom-module id="contact-list">
   <template>
-    <firebase-query
-      id="ref" childEvents location="https://project-1728811666298556286.firebaseio.com/"
-      data="{{data}}" keys="{{keys}}">
-    </firebase-query>
-    <section data-route="users" tabindex="-1" >
-      <contact-listing></contact-listing>
-      <paper-material elevation="1">
-        <h1 class="page-title" tabindex="-1">Contacts</h1>
-        <p>This is the contacts list</p>
+    <div class="container">
+        <firebase-query
+          id="ref" childEvents location="https://project-1728811666298556286.firebaseio.com/"
+          data="{{data}}" keys="{{keys}}">
+        </firebase-query>
+        <section data-route="users" tabindex="-1" >
+          <contact-listing></contact-listing>
+          <paper-material elevation="1">
+            <h1 class="page-title" tabindex="-1">Contacts</h1>
+            <hr>
+            <ul>
+
+              <template is="dom-repeat" items="{{contacts}}">
+                <li>
+                  <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}" address="{{item.address}}"></contact-listing>
+                </li>
+              </template>
+            </ul>
+          </paper-material>
         <hr>
-        <ul>
+        <div>
+          <!-- <div class="jumbotron" style="background-color:gainsboro;"> -->
+        <form is="iron-form" id="create-contact">
+          <ul style="list-decoration:none;">
+            <h3>Add New Contact</h3>
+            <p class="contactInput" id="contact-name">
+            <paper-input-decorator label="Name">Name:
+              <input is="core-input" value="{{data.name}}"></input>
+            </paper-input-decorator>
+            </p>
+            <p class="contactInput" id="contact-email">
+            <paper-input-decorator label="Email">Email:
+              <input is="core-input" value="{{data.email}}"></input>
+            </paper-input-decorator>
+            </p>
+            <p class="contactInput" id="contact-address">
+            <paper-input-decorator label="Number">Phone No:
+              <input is="core-input" value="{{data.address}}"></input>
+            </paper-input-decorator>
+            </p>
+          </ul>
+          <div>
+            <a href="/add" on-click="{{navigate}}">
+              <i class="fa fa-plus-circle" style="font-size:22px;" aria-hidden="true"></i>
+            </a>
+            <input type="submit" value="Save Contact" id="form_submit" onsubmit={{createContact}}></input>
+          </div>
+        </form>
+    <!-- </div> -->
 
-          <template is="dom-repeat" items="{{contacts}}">
-            <li>
-              <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}" address="{{item.address}}"></contact-listing>
-            </li>
-          </template>
-          <a href="/add" on-click="{{navigate}}">
-            <i class="fa fa-plus-circle" style="font-size:50px;" aria-hidden="true"> Add Contact</i>
-          </a>
-        </ul>
-      </paper-material>
-    <hr>
-    <div>
-      <!-- <div class="jumbotron" style="background-color:gainsboro;"> -->
-    <form is="iron-form" id="create-contact">
-      <ul style="list-decoration:none;">
-        <h3>Add New Contact</h3>
-        <p class="contactInput" id="contact-name">
-        <paper-input-decorator label="Name">Name:
-          <input is="core-input" value="{{data.name}}"></input>
-        </paper-input-decorator>
-        </p>
-        <p class="contactInput" id="contact-email">
-        <paper-input-decorator label="Email">Email:
-          <input is="core-input" value="{{data.email}}"></input>
-        </paper-input-decorator>
-        </p>
-        <p class="contactInput" id="contact-address">
-        <paper-input-decorator label="Number">Phone No:
-          <input is="core-input" value="{{data.address}}"></input>
-        </paper-input-decorator>
-        </p>
-      </ul>
-      <input type="submit" value="Save Contact" id="form_submit" onsubmit={{createContact}}></input>
-    </form>
-<!-- </div> -->
+      <!-- <script>
+        function submitForm() {
+          document.getElementById('form').preventDefault;
 
-  <!-- <script>
-    function submitForm() {
-      document.getElementById('form').preventDefault;
-
-      var ref = new Firebase("https://project-1728811666298556286.firebaseio.com/");
-      ref.authAnonymously(function(error, authData) {
-      if (error) {
-      console.log("Authentication Failed!", error);
-      } else {
-      console.log("Authenticated successfully with payload:", authData);
-    }
-    var newContactRef = contactListRef.push();
-    newContactRef.set({ 'name': '{{this.name}}', 'email': '{{this.email}}', 'address': '{{this.address}}' });
-  });
-    }
-  </script> -->
-  </section>
+          var ref = new Firebase("https://project-1728811666298556286.firebaseio.com/");
+          ref.authAnonymously(function(error, authData) {
+          if (error) {
+          console.log("Authentication Failed!", error);
+          } else {
+          console.log("Authenticated successfully with payload:", authData);
+        }
+        var newContactRef = contactListRef.push();
+        newContactRef.set({ 'name': '{{this.name}}', 'email': '{{this.email}}', 'address': '{{this.address}}' });
+      });
+        }
+      </script> -->
+      </section>
+    </div>
   </template>
   <!-- <template is="dom-repeat" items="{{items}}">
       <div>
@@ -175,7 +178,7 @@
             console.log("The read failed: " + errorObject.code);
           });
         },
-        
+
         _openStaticDialog: function(ev) {
         this.$.static.open();
         }

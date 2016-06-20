@@ -42,23 +42,13 @@
         </paper-menu>
       </paper-scroll-header-panel>
 
-      <paper-toolbar id="mainToolbar" class="tall">
-        <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-        <span class="space"></span>
-
-        <!-- Toolbar icons -->
-        <!-- <paper-icon-button icon="refresh"></paper-icon-button>
-        <paper-icon-button icon="search"></paper-icon-button> -->
+      <paper-toolbar id="mainToolbar" class="tall" style="max-height:150px;">
 
         <!-- Application name -->
         <div class="middle middle-container">
-          <div class="app-name">Simply Boutique Teas</div>
+          <div class="app-name" style="font-size: 40px; line-height: 50px;"><h1 class="toolbar">Simply Boutique Teas</h1></div>
         </div>
 
-        <!-- Application sub title -->
-        <div class="bottom bottom-container">
-          <div class="bottom-title">Come in for a nice surprise.</div>
-        </div>
       </paper-toolbar>
 
       <div class="content">
@@ -66,11 +56,25 @@
           <img src="../images/assets/Teahouse.jpg" alt="Teahouse" class="landing_img">
           <hr>
         </section>
-        <section id="links">
+        <div class="container">
+          <section id="links">
+            <div class="col-lg-4">
+            <img src="../images/assets/trysomething.jpg" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img" </img>
+            <h2 class="homeH2">What's New?</h2>
+            <hr>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
+              </p>
+            </div>
           <div class="col-lg-4">
-          <img src="../images/assets/trysomething.jpg" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img" </img>
-          <h2 class="homeH2">What's New?</h2>
-          <hr>
+            <img src="../images/assets/hamper.jpg" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img" </img>
+            <h2 class="homeH2">Gifts and Hampers</h2>
+            <hr>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
               ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
@@ -80,33 +84,21 @@
               est laborum.
             </p>
           </div>
-        <div class="col-lg-4">
-          <img src="../images/assets/hamper.jpg" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img" </img>
-          <h2 class="homeH2">Gifts and Hampers</h2>
-          <hr>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-            sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-            est laborum.
-          </p>
+          <div class="col-lg-4">
+            <img src="../images/assets/teas.png" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img"  </img>
+            <h2 class="homeH2">Our Tea Collection</h2>
+            <hr>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+                est laborum.
+              </p>
+            </div>
+          </section>
         </div>
-        <div class="col-lg-4">
-          <img src="../images/assets/teas.png" style="width: 250px; height: 250px; margin: 0 auto;" class="home_img"  </img>
-          <h2 class="homeH2">Our Tea Collection</h2>
-          <hr>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-              ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-              sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-              est laborum.
-            </p>
-          </div>
-        </section>
       </div>
   </template>
 </dom-module>

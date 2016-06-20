@@ -13,7 +13,8 @@ body {
 }
 
 #mainToolbar {
-  background-color: rgba(33, 98, 130, 0.64);
+  background: -moz-linear-gradient(-90deg, #003471, #448CCB);
+  background: -webkit-gradient(linear, left top, left bottom, from(#003471), to(#448CCB));
 }
 
 .page-title {
@@ -22,7 +23,7 @@ body {
 
 .landing_img {
   width: 100%;
-  margin-top: -3%;
+  margin-top: 0;
   margin-bottom: 5vh;
   background-size:cover;
   border-radius: .5em;
@@ -96,6 +97,13 @@ p {
   text-align: justify;
 }
 
-i {
+.toolbar{
+  font-size: 7rem;
+  font-weight: 700;
+  letter-spacing: -1.25rem;
+  color: lightsteelblue;
+}
 
+.toolbar:nth-child(1) {
+  color: rgba(#AB1795, 0.75);
 }
