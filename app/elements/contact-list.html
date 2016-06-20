@@ -16,14 +16,15 @@
         <ul>
           <template is="dom-repeat" items="{{contacts}}">
             <li>
-              <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}"></contact-listing>
+              <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}" address="{{item.address}}"></contact-listing>
             </li>
           </template>
         </ul>
       </paper-material>
     <hr>
     <div>
-    <form is="iron-form" on-submit="{{createContact}}">
+      <!-- <div class="jumbotron" style="background-color:gainsboro;"> -->
+    <form is="iron-form">
       <ul style="list-decoration:none;">
         <h3>Add New Contact</h3>
         <p class="contactInput">
@@ -42,9 +43,9 @@
         </paper-input-decorator>
         </p>
       </ul>
-      <input type="submit" value="Add Contact" id="form_submit"></input>
+      <input type="submit" value="Add Contact" id="form_submit" onsubmit={{createContact}}></input>
     </form>
-
+<!-- </div> -->
 
   <!-- <script>
     function submitForm() {
@@ -110,8 +111,9 @@
 
     createContact: function(e){
       e.preventDefault();
-      console.log("this is working");
-      this.$.ref.push({name: this.name, email: this.email, address: this.address});
+      var contactListRef = new Firebase("https://project-1728811666298556286.firebaseio.com/contact_list")
+      var newContactRef = contactListRef.push();
+      this.$.ref.push();
       this.text = "";
     },
 

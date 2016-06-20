@@ -87,18 +87,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <!-- endbuild -->
 
-  <!-- Render template -->
-  <home-page></home-page>
-  <!--  -->
-  <template is="dom-bind" id="app">
-  </template>
-  <!-- Render template -->
-  <br>
-  <hr>
-  <contact-list style="background-color:#1f756d;"></contact-list>
-  <footer-file></footer-file>
-  <!--  -->
-
   <!-- Uncomment next block to enable Service Worker support (1/2) -->
 
   <paper-toast id="caching-complete"
@@ -116,14 +104,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </platinum-sw-cache>
   </platinum-sw-register>
 
+  <!-- Configure Firebase -->
   <firebase-app
-    name: "SimplyBoutiqueTeas",
-    apiKey: "AIzaSyAQqyiedqvit9B4N8XUdwVMaL37wko-4hs",
-    authDomain: "project-1728811666298556286.firebaseapp.com",
-    databaseURL: "https://project-1728811666298556286.firebaseio.com">
+    name: "boutiqueTeas",
+    api-key: "AIzaSyAQqyiedqvit9B4N8XUdwVMaL37wko-4hs",
+    auth-domain: "project-1728811666298556286.firebaseapp.com",
+    database-url: "https://project-1728811666298556286.firebaseio.com">
   </firebase-app>
 
-
+  <!-- Render template -->
+  <home-page></home-page>
+  <!--  -->
+  <template is="dom-bind" id="app">
+  </template>
+  <!-- Render template -->
+  <br>
+  <hr>
+  <contact-list style="background-color:#1f756d;"></contact-list>
+  <footer-file></footer-file>
+  <!--  -->
 
   <!-- build:js scripts/app.js -->
   <script src="scripts/app.js"></script>
