@@ -1,0 +1,134 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="contact-listing.html">
+
+<dom-module id="contact-list">
+  <template>
+    <section data-route="users" tabindex="-1" >
+      <contact-listing></contact-listing>
+      <paper-material elevation="1">
+        <h1 class="page-title" tabindex="-1">Contacts</h1>
+        <p>This is the contacts list</p>
+        <hr>
+        <ul>
+          <template is="dom-repeat" items="{{contacts}}">
+            <li>
+              <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}"></contact-listing>
+            </li>
+          </template>
+        </ul>
+      </paper-material>
+    <hr>
+    <div>
+    <form is="iron-form" id="form" method="post" action="/form/handler">
+      <ul style="list-decoration:none;">
+        <li>First Name:<input name="firstName"></input></li>
+        <li>Last Name:<input name="lastName"></input></li>
+        <li>Email:<input name="email"></input></li>
+        <li>Address:<input name="address"></input></li>
+      </ul>
+    </form>
+    <paper-button raised onclick="submitForm()">Submit</paper-button>
+
+  <script>
+    function submitForm() {
+      document.getElementById('form').submit();
+    }
+  </script>
+  </section>
+  </template>
+  <template is="dom-repeat" items="{{items}}">
+      <div>
+       <paper-icon-button icon="delete"
+        on-click="deleteItem"></paper-icon-button>
+       <paper-checkbox on-change="toggleItem"
+        checked="{{item.done}}">[[item.text]]
+       </paper-checkbox>
+    </div>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "contact-list",
+    ready: function() {
+      this.contacts = [
+        {
+          name: "Scott",
+          email: "scott@gmail.com",
+          img: "https://randomuser.me/api/portraits/thumb/men/5.jpg",
+          address: "42 Evergreen Terrace, Randwick"
+        }, {
+          name: "Tim",
+          email: "tim@gmail.com",
+          img: "https://randomuser.me/api/portraits/thumb/men/7.jpg",
+          address: "21 Newtown Drive, Newtown"
+        }, {
+          name: "Ben",
+          email: "ben@gmail.com",
+          img: "https://randomuser.me/api/portraits/thumb/men/9.jpg",
+          address: "31 Sunset Boulevarde, Newport"
+        },
+      ]
+    },
+    properties: {
+
+      firebaseURL: {
+        type: String,
+        readOnly:true,
+        value: 'https://project-1728811666298556286.firebaseio.com/'
+      },
+      firebaseProvider: {
+        type: String,
+        readOnly:true,
+        value: 'anonymous'
+      },
+       },
+    updateItems : function(snapshot) {
+      //this.items = [];
+         var itemlist= 'this.items';
+         snapshot.forEach(function(childSnapshot) {
+         var item = childSnapshot.val();
+         item.uid = childSnapshot.key();
+         this.ref.push({ 'name': '{{item.name}}', 'email': '{{item.email}}', 'phoneNo': '{{item.phoneNo}}' });
+       }.bind(this));
+     },
+
+     addItem : function(event) {
+         event.preventDefault(); // Don't send the form!
+         this.ref.push({
+         done: false,
+         date: this.staticDate,
+         text: this.newItemValue
+      });
+        this.newItemValue = '';
+     },
+
+     toggleItem : function(event) {
+          this.ref.child(event.model.item.uid).update({done:  event.model.item.done});
+     },
+
+      deleteItem : function(event) {
+          this.ref.child(event.model.item.uid).remove();
+       },
+
+       onFirebaseError : function(e) {
+             this.$.errorToast.text = e.detail.message;
+             this.$.errorToast.show();
+       },
+       onFirebaseLogin : function(e) {
+
+             this.ref = new Firebase(this.firebaseURL + '/user/' + e.detail.user.uid);
+
+            var self = this;
+            this.ref.on('value', function(snapshot) {
+            self.updateItems(snapshot);
+         }, function (errorObject) {
+          console.log("The read failed: " + errorObject.code);
+  });
+
+      },
+
+                  _openStaticDialog: function(ev) {
+                      this.$.static.open();
+                }
+              });
+</script>

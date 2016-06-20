@@ -41,24 +41,29 @@ li + li {
   border-top: solid 1px black;
 }
 
-li {
+.listing-wrapper {
   display: flex;
   padding: 20px;
   margin-bottom: 40px;
 }
 
-li img {
+.listing-wrapper img {
   border-radius: 50%;
   margin-right: 40px;
 }
 
-li span {
+.listing-wrapper span {
   line-height: 80px;
 }
 
 h3 {
   margin: 0 10px 0 0;
   line-height: 80px;
+  color: gainsboro;
+}
+
+span {
+  color: gainsboro;
 }
 
 h1 {

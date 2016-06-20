@@ -162,16 +162,16 @@ gulp.task('html', function() {
 });
 
 // Vulcanize granular configuration
-gulp.task('vulcanize', function() {
-  return gulp.src('app/elements/elements.html')
-    .pipe($.vulcanize({
-      stripComments: true,
-      inlineCss: true,
-      inlineScripts: true
-    }))
-    .pipe(gulp.dest(dist('elements')))
-    .pipe($.size({title: 'vulcanize'}));
-});
+// gulp.task('vulcanize', function() {
+//   return gulp.src('app/elements/elements.html')
+//     .pipe($.vulcanize({
+//       stripComments: true,
+//       inlineCss: true,
+//       inlineScripts: true
+//     }))
+//     .pipe(gulp.dest(dist('elements')))
+//     .pipe($.size({title: 'vulcanize'}));
+// });
 
 // Generate config data for the <sw-precache-cache> element.
 // This include a list of files that should be precached, as well as a (hopefully unique) cache
