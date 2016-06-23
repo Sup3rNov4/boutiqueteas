@@ -14,12 +14,12 @@
             <h1 class="page-title" tabindex="-1">Contacts</h1>
             <hr>
             <ul>
-
-              <template is="dom-repeat" items="{{contacts}}">
+              <!-- <template is="dom-repeat" items="{{contacts}}">
                 <li>
                   <contact-listing img="{{item.img}}" name="{{item.name}}" email="{{item.email}}" address="{{item.address}}"></contact-listing>
                 </li>
-              </template>
+              </template> -->
+              <div class="contactDiv"></div>
             </ul>
           </paper-material>
         <hr>
@@ -105,17 +105,31 @@
 </dom-module>
 <script>
 
+// Function to create a contact
 var createContact = function(){
   var name = $(".dataName").val();
   var email = $(".dataEmail").val();
   var number = $(".dataNumber").val();
   console.log("entered");
   event.preventDefault();
+  // pushes to Firebase URL
   var contactListRef = new Firebase("https://project-1728811666298556286.firebaseio.com/contacts");
   var newContactRef = contactListRef.push({name: name, email: email, number: number});
-  $(".dataName").text("");
-  $(".dataEmail").text("");
-  $(".dataNumber").text("");
+
+  // Every time data is added to the server, it sends back a snapshot.
+  contactListRef.on("child_added", function( snapshot ){
+    // snapshot.val() breaks it back down to our basic object.
+    var contact = snapshot.val();
+    // Call our showContact function taking the information out of our snapshot.
+    showContact( contact.name, contact.email, contact.number );
+  });
+
+  var showContact = function( name, email, number ){
+  // Generates our html and concatenates our variables in to the string.
+  $('<div class="contactList"><strong>' + "Name:" + name + '</strong>: ' +  "Email:" +email + '</strong>: ' + "Number:" +number +  '</div>').appendTo('.contactDiv');
+  // Scrolls to the last appended message.
+  // $('.contactDiv')[0].strollTop = $('.contactDiv')[0].scrollHeight
+  }
 }
 
   Polymer({
