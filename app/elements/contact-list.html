@@ -125,10 +125,8 @@ var createContact = function(){
   });
 
   var showContact = function( name, email, number ){
-  // Generates our html and concatenates our variables in to the string.
+  // Generates html and concatenates variables into the string.
   $('<div class="contactList"><strong>' + "Name:" + name + '</strong>: ' +  "Email:" +email + '</strong>: ' + "Number:" +number +  '</div>').appendTo('.contactDiv');
-  // Scrolls to the last appended message.
-  // $('.contactDiv')[0].strollTop = $('.contactDiv')[0].scrollHeight
   }
 }
 
