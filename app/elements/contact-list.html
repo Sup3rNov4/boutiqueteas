@@ -5,7 +5,7 @@
   <template>
     <div class="container">
         <firebase-query
-          id="ref" childEvents location="https://project-1728811666298556286.firebaseio.com/"
+          id="ref" childEvents location="https://project-1728811666298556286.firebaseio.com/contacts"
           data="{{data}}" keys="{{keys}}">
         </firebase-query>
         <section data-route="users" tabindex="-1" >
@@ -25,32 +25,43 @@
         <hr>
         <div>
           <!-- <div class="jumbotron" style="background-color:gainsboro;"> -->
-        <form is="iron-form" id="create-contact">
+        <form is="iron-form" id="create-contact" onsubmit="createContact()">
           <ul style="list-decoration:none;">
             <h3>Add New Contact</h3>
             <p class="contactInput" id="contact-name">
-            <paper-input-decorator label="Name">Name:
-              <input is="core-input" value="{{data.name}}" required="true"></input>
-            </paper-input-decorator>
+              <paper-input-decorator label="Name">Name:
+              <input class="dataName" is="core-input" value="{{data.name}}" required="true"></input>
+              </paper-input-decorator>
             </p>
             <p class="contactInput" id="contact-email">
-            <paper-input-decorator label="Email">Email:
-              <input is="core-input" value="{{data.email}}" required="true"></input>
-            </paper-input-decorator>
+              <paper-input-decorator label="Email">Email:
+              <input class="dataEmail" is="core-input" value="{{data.email}}" required="true"></input>
+              </paper-input-decorator>
             </p>
-            <p class="contactInput" id="contact-address">
-            <paper-input-decorator label="Number">Phone No:
-              <input is="core-input" value="{{data.address}}" required="true"></input>
-            </paper-input-decorator>
+            <p class="contactInput" id="contact-number">
+              <paper-input-decorator label="Number">Phone No:
+              <input class="dataNumber" is="core-input" value="{{data.address}}" required="true"></input>
+              </paper-input-decorator>
             </p>
           </ul>
           <div>
-            <a href="/add" on-click="{{navigate}}">
+            <a href="/add">
               <i class="fa fa-plus-circle" style="font-size:22px;" aria-hidden="true"></i>
             </a>
-            <input type="submit" value="Save Contact" id="form_submit" onsubmit={{createContact}}></input>
+            <button class="saveContButton">Save Contact</button>
+            <!-- <input type="submit" value="Save Contact" id="form_submit"></input> -->
           </div>
         </form>
+
+
+        <!-- // form.addEventListener('iron-form-presubmit', function(event) {
+        //   debugger;
+        //   event.preventDefault();
+        //   var firebase = new Firebase(form.getAttribute('action'));
+        //   firebase.set(form.serialize());
+        // }); -->
+        <!-- // </script> --> -->
+
     <!-- </div> -->
 
       <!-- <script>
@@ -81,18 +92,32 @@
        </paper-checkbox>
     </div> -->
     <div class="contact-list">
-  <template is="dom-repeat" items="[[persistedContacts]]" as="contact">
-    <span
-        id$="[[item.$key]]"
-        name="[[item.name]]"
-        email="[[item.email]]"
-        address="[[item.address]]"
-        on-tap="edit">
-    </span>
-  </template>
-</div>
+      <template is="dom-repeat" items="[[persistedContacts]]" as="contact">
+        <span
+            id$="[[item.$key]]"
+            name="[[item.name]]"
+            email="[[item.email]]"
+            address="[[item.address]]"
+            on-tap="edit">
+        </span>
+      </template>
+    </div>
 </dom-module>
 <script>
+
+var createContact = function(){
+  var name = $(".dataName").val();
+  var email = $(".dataEmail").val();
+  var number = $(".dataNumber").val();
+  console.log("entered");
+  event.preventDefault();
+  var contactListRef = new Firebase("https://project-1728811666298556286.firebaseio.com/contacts");
+  var newContactRef = contactListRef.push({name: name, email: email, number: number});
+  $(".dataName").text("");
+  $(".dataEmail").text("");
+  $(".dataNumber").text("");
+}
+
   Polymer({
     is: "contact-list",
     ready: function() {
@@ -116,26 +141,37 @@
       ]
     },
 
-    createContact: function(e){
-      e.preventDefault();
-      var contactListRef = new Firebase("https://project-1728811666298556286.firebaseio.com/contact_list")
-      var newContactRef = contactListRef.push();
-      this.$.ref.push();
-      this.text = "";
-    },
+    // listeners: {
+    //   'iron-form-presubmit': 'createContact'
+    // },
+    //
+    // hitler: function(){
+    //   event.preventDefault();
+    //   console.log("Dead.");
+    //   contactListRef.push("{name:{{data.name}}, email:{{data.email}}, number:{{data.number}}}");
+    // },
+    //
+    //
+    // createContact: function(e){
+    //   console.log("entered");
+    //   e.preventDefault();
+    //   var contactListRef = new Firebase("https://project-1728811666298556286.firebaseio.com/contacts.json");
+    //   var newContactRef = contactListRef.push({name:"name", email:"email", number:"number"});
+    // },
 
     properties: {
       firebaseURL: {
         type: String,
         readOnly:true,
-        value: 'https://project-1728811666298556286.firebaseio.com/'
+        value: 'https://project-1728811666298556286.firebaseio.com/contacts'
       },
       firebaseProvider: {
         type: String,
         readOnly:true,
         value: 'anonymous'
       },
-       },
+    },
+
     updateItems : function(snapshot) {
       //this.items = [];
          var itemlist= 'this.items';
